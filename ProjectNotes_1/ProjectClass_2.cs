@@ -22,7 +22,9 @@ namespace ProjectNotes_1
         public string designation { get; set; }
         public string open { get; set; }
         public DateTime dateStarted { get; set; }
+        public string dateStartedString { get; set; }
         public DateTime dateClosed { get; set; }
+        public string dateClosedString { get; set; }
         public string currentRev { get; set; }
         public string projectName { get; set; }
         public string partNum { get; set; }

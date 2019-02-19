@@ -26,8 +26,18 @@ namespace ProjectNotes_1
         public MainWindow()
         {
             InitializeComponent();
-
-            
+            MessageBox.Show(Properties.Settings.Default.userName);
+            if(Properties.Settings.Default.userName == "")
+            {
+                setUserName set = new setUserName();
+                set.ShowDialog();
+                while(!set.success)
+                {
+                    MessageBox.Show("You must enter a username.");
+                    set.ShowDialog();
+                }
+            }
+            userNameTextBlock.Text = Properties.Settings.Default.userName;
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -35,6 +45,11 @@ namespace ProjectNotes_1
             projectViewWindow newProjWindow = new projectViewWindow();
             newProjWindow.ShowDialog();
             //Grid g = new Grid();
+        }
+
+        private void changeUserButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

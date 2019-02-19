@@ -54,12 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="meta.cs" />
     <Compile Include="ProjectClass.cs" />
     <Compile Include="ProjectClass_2.cs" />
     <Compile Include="projectViewWindow.xaml.cs">
       <DependentUpon>projectViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecordClass.cs" />
+    <Compile Include="setUserName.xaml.cs">
+      <DependentUpon>setUserName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_global.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +78,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="projectViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setUserName.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
