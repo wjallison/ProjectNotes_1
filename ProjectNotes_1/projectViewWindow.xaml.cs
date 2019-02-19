@@ -69,6 +69,9 @@ namespace ProjectNotes_1
                 System.IO.Directory.CreateDirectory(
                     System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation);
             }
+
+
+
         }
 
         //public projectViewWindow(ProjectClass p)
@@ -95,12 +98,12 @@ namespace ProjectNotes_1
              * Second, open / create a folder for the project
              * CHECK
              * Third, copy the image into that folder
-             * 
+             * CHECK
              * Fourth, create a copy of the image scaled to 50 pixels maximum and add to figListBox
              * 
              */
 
-            proj.basics.designation = "test";
+            //proj.basics.designation = "test";
 
             Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
             if(openFile.ShowDialog() == true)
@@ -201,6 +204,15 @@ namespace ProjectNotes_1
         private void desigTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void figListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri(System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation
+                    + "/" + proj.log.links.imgLocList[figListBox.SelectedIndex]));
+
+            activeFigImage = img;
         }
     }
 }

@@ -103,7 +103,7 @@
                 <Button x:Name="addFigButton" Width="80" Height="20" Content="Add Figure" Click="addFigButton_Click"/>
             </StackPanel>
 
-            <ListBox x:Name="figListBox" Grid.Row="1" Grid.Column="2" />
+            <ListBox x:Name="figListBox" Grid.Row="1" Grid.Column="2" SelectionChanged="figListBox_SelectionChanged"/>
 
             <Image x:Name="activeFigImage" Grid.Row="1" Grid.Column="3"/>
 
