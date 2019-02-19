@@ -58,6 +58,19 @@ namespace ProjectNotes_1
 
         }
 
+        public void Save()
+        {
+            if (System.IO.Directory.Exists(System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation))
+            {
+
+            }
+            else
+            {
+                System.IO.Directory.CreateDirectory(
+                    System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation);
+            }
+        }
+
         //public projectViewWindow(ProjectClass p)
         //{
         //    InitializeComponent();
@@ -76,16 +89,54 @@ namespace ProjectNotes_1
             /*
              * There's a lot that needs to happen here.
              * 
+             * CHECK
              * First, OpenFileDialog to select the image.
+             * CHECK
              * Second, open / create a folder for the project
+             * CHECK
              * Third, copy the image into that folder
+             * 
              * Fourth, create a copy of the image scaled to 50 pixels maximum and add to figListBox
              * 
              */
 
+            proj.basics.designation = "test";
+
             Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
             if(openFile.ShowDialog() == true)
             {
+                if(System.IO.Directory.Exists(System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation))
+                {
+
+                }
+                else
+                {
+                    System.IO.Directory.CreateDirectory(
+                        System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation);
+                }
+                System.IO.File.Copy(openFile.FileName,
+                    System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation
+                    + "/" + System.IO.Path.GetFileName(openFile.FileName), true);
+
+                proj.log.links.imgLocList.Add(System.IO.Path.GetFileName(openFile.FileName));
+
+                
+                //im.Source = new BitmapImage(new Uri())
+                for(int i = 0; i < proj.log.links.imgLocList.Count; i++)
+                {
+                    Image im = new Image();
+                    im.Source = new BitmapImage(new Uri(
+                        System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation
+                    + "/" + proj.log.links.imgLocList[i]));
+                    double x, y;
+                    x = im.Width;
+                    y = im.Height;
+
+                    im.Width = 50;
+                    im.Height = im.Height * 50 / x;
+
+                    figListBox.Items.Add(im);
+                }
 
             }
         }
@@ -145,6 +196,11 @@ namespace ProjectNotes_1
             {
                 _global.projects[index] = proj;
             }
+        }
+
+        private void desigTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
