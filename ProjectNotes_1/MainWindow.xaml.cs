@@ -20,9 +20,18 @@ namespace ProjectNotes_1
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<ProjectClass> projectList = new List<ProjectClass>();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            projectViewWindow newProjWindow = new projectViewWindow();
+            newProjWindow.ShowDialog();
+            //Grid g = new Grid();
         }
     }
 }

@@ -7,6 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DataGrid x:Name="mainDataGrid" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding ProjectClass}">
+            
+        </DataGrid>
+
+        <Button x:Name="addButton" Grid.Row="1" Grid.Column="0" Height="20" Width="80" Content="Add" 
+                Click="addButton_Click"/>
+
     </Grid>
 </Window>

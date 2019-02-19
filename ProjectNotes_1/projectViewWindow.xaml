@@ -1,0 +1,65 @@
+﻿<Window x:Class="ProjectNotes_1.projectViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectNotes_1"
+        mc:Ignorable="d"
+        Title="projectViewWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width=".25*"/>
+            <ColumnDefinition Width=".25*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="textFieldsDataGrid" Grid.Row="0" Grid.Column="0" DataContext="{Binding}"
+                  AutoGenerateColumns="False"  ItemsSource="{Binding Entry, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Date" Width="1*" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding updateDateString}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Rev" Width=".5*" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding rev, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="User" Width=".75*" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding user}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn-->
+                <!--<DataGridTextColumn Binding="{Binding content, Mode=TwoWay}" 
+                                    Header="Update Content" Width="3*" IsReadOnly="False"/>-->
+                <DataGridTemplateColumn Header="Update Content" Width="3*" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<TextBox Text="{Binding updateContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>-->
+                            <TextBox Text="{Binding content, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+            <Button x:Name="addUpdateButton" Width="80" Height="20" Content="Add" Click="addUpdateButton_Click"/>
+            <Button x:Name="linkButton" Width="80" Height="20" Content="Link to File" Click="linkButton_Click"/>
+            <Button x:Name="addFigButton" Width="80" Height="20" Content="Add Figure" Click="addFigButton_Click"/>
+        </StackPanel>
+
+        <ListBox x:Name="figListBox" Grid.Row="0" Grid.Column="2"/>
+
+        <Image x:Name="activeFigImage" Grid.Row="0" Grid.Column="3"/>
+        
+    </Grid>
+</Window>
