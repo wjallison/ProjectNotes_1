@@ -20,11 +20,14 @@ namespace ProjectNotes_1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<ProjectClass> projectList = new List<ProjectClass>();
+        //public List<ProjectClass> projectList = new List<ProjectClass>();
+        public List<ProjectClass_2> projectList = new List<ProjectClass_2>();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
