@@ -21,6 +21,10 @@ namespace ProjectNotes_1
     {
         //public ProjectClass thisProject;
         public ProjectClass_2 proj;
+        public bool fromScratch = true;
+        public int index;
+
+        public List<Image> figList = new List<Image>();
 
         public projectViewWindow()
         {
@@ -34,6 +38,23 @@ namespace ProjectNotes_1
             //thisProject.addNoteLine();
             //thisProject.notes.updateContent[0] = "test";
             //textFieldsDataGrid.Items.Add(thisProject.notes);
+
+        }
+
+        public projectViewWindow(int ind)
+        {
+            fromScratch = false;
+            index = ind;
+            proj = _global.projects[index];
+
+            if(proj.log.entries.Count > 0)
+            {
+                for(int i = 0; i < proj.log.entries.Count; i++)
+                {
+                    textFieldsDataGrid.Items.Add(proj.log.entries[i]);
+                }
+            }
+
 
         }
 
@@ -52,7 +73,21 @@ namespace ProjectNotes_1
 
         private void addFigButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * There's a lot that needs to happen here.
+             * 
+             * First, OpenFileDialog to select the image.
+             * Second, open / create a folder for the project
+             * Third, copy the image into that folder
+             * Fourth, create a copy of the image scaled to 50 pixels maximum and add to figListBox
+             * 
+             */
 
+            Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
+            if(openFile.ShowDialog() == true)
+            {
+
+            }
         }
 
         private void addUpdateButton_Click(object sender, RoutedEventArgs e)
@@ -97,6 +132,19 @@ namespace ProjectNotes_1
             //Entry test = (Entry)textFieldsDataGrid.Items[0];
             //MessageBox.Show(test.content);
             //MessageBox.Show(test.content);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (fromScratch)
+            {
+                _global.projects.Add(proj);
+            }
+
+            else
+            {
+                _global.projects[index] = proj;
+            }
         }
     }
 }

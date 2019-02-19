@@ -5,69 +5,109 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectNotes_1"
         mc:Ignorable="d"
-        Title="projectViewWindow" Height="450" Width="800">
+        Title="projectViewWindow" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width=".25*"/>
-            <ColumnDefinition Width=".25*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
-        
-        
-        <DataGrid x:Name="textFieldsDataGrid" Grid.Row="1" Grid.Column="0" DataContext="{Binding}"
-                  AutoGenerateColumns="False"  ItemsSource="{Binding Entry, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Date" Width="1*" IsReadOnly="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding updateDateString}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Rev" Width=".5*" IsReadOnly="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding rev, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="User" Width=".75*" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding user}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <!--<DataGridTextColumn-->
-                <!--<DataGridTextColumn Binding="{Binding content, Mode=TwoWay}" 
-                                    Header="Update Content" Width="3*" IsReadOnly="False"/>-->
-                <DataGridTemplateColumn Header="Update Content" Width="3*" IsReadOnly="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <!--<TextBox Text="{Binding updateContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>-->
-                            <TextBox Text="{Binding content, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <Button x:Name="addUpdateButton" Width="80" Height="20" Content="Add" Click="addUpdateButton_Click"/>
-            <Button x:Name="linkButton" Width="80" Height="20" Content="Link to File" Click="linkButton_Click"/>
-            <Button x:Name="addFigButton" Width="80" Height="20" Content="Add Figure" Click="addFigButton_Click"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel>
+                <Label Content="Designation"/>
+                <TextBox x:Name="desigTextBox"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Open"/>
+                <CheckBox x:Name="openProjectCheckBox" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Date Started"/>
+                <TextBox x:Name="dateStartedTextBox"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Date Closed"/>
+                <TextBox x:Name="dateClosedTextBox"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Current Rev"/>
+                <TextBlock x:Name="revTextBlock"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Project Name"/>
+                <TextBox x:Name="projNameTextBox"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Part Number Involved"/>
+                <TextBox x:Name="partNoTextBox"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Description"/>
+                <TextBox x:Name="descTextBox" Width="200"/>
+            </StackPanel>
         </StackPanel>
 
-        <ListBox x:Name="figListBox" Grid.Row="1" Grid.Column="2" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
 
-        <Image x:Name="activeFigImage" Grid.Row="1" Grid.Column="3"/>
-        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <DataGrid x:Name="textFieldsDataGrid" Grid.Row="1" Grid.Column="0" DataContext="{Binding}"
+                  AutoGenerateColumns="False"  ItemsSource="{Binding Entry, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Date" Width="1*" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding updateDateString}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Rev" Width=".5*" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding rev, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="User" Width=".75*" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding user}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <!--<DataGridTextColumn-->
+                    <!--<DataGridTextColumn Binding="{Binding content, Mode=TwoWay}" 
+                                    Header="Update Content" Width="3*" IsReadOnly="False"/>-->
+                    <DataGridTemplateColumn Header="Update Content" Width="3*" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <!--<TextBox Text="{Binding updateContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>-->
+                                <TextBox Text="{Binding content, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" AcceptsReturn="True" LostFocus="TextBox_LostFocus"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                <Button x:Name="addUpdateButton" Width="80" Height="20" Content="Add" Click="addUpdateButton_Click"/>
+                <Button x:Name="linkButton" Width="80" Height="20" Content="Link to File" Click="linkButton_Click"/>
+                <Button x:Name="addFigButton" Width="80" Height="20" Content="Add Figure" Click="addFigButton_Click"/>
+            </StackPanel>
+
+            <ListBox x:Name="figListBox" Grid.Row="1" Grid.Column="2" />
+
+            <Image x:Name="activeFigImage" Grid.Row="1" Grid.Column="3"/>
+
+        </Grid>
     </Grid>
+
 </Window>
