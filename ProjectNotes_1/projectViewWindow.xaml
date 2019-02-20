@@ -18,8 +18,9 @@
                 <TextBox x:Name="desigTextBox" TextChanged="desigTextBox_TextChanged" LostFocus="desigTextBox_LostFocus"/>
             </StackPanel>
             <StackPanel>
-                <Label Content="Open"/>
-                <CheckBox x:Name="openProjectCheckBox" HorizontalAlignment="Center"/>
+                <Label x:Name="projectStateLabel" Content="Open"/>
+                <CheckBox x:Name="openProjectCheckBox" HorizontalAlignment="Center" IsThreeState="True"
+                          Click="openProjectCheckBox_Click"/>
             </StackPanel>
             <StackPanel>
                 <Label Content="Date Started"/>

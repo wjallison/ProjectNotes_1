@@ -17,10 +17,13 @@
         </Grid.RowDefinitions>
 
         <DataGrid x:Name="mainDataGrid" Grid.Row="0" Grid.Column="0" DataContext="{Binding}" 
-                  ItemsSource="{Binding basicProps}" AutoGenerateColumns="False">
+                  ItemsSource="{Binding basicProps}" AutoGenerateColumns="False"
+                  MouseDoubleClick="mainDataGrid_MouseDoubleClick"
+                  MouseDown="mainDataGrid_MouseDown"
+                  BeginningEdit="mainDataGrid_BeginningEdit">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding designation}" Header="Designation"/>
-                <DataGridCheckBoxColumn Binding="{Binding open}" Header="Open"/>
+                <DataGridCheckBoxColumn Binding="{Binding open}" Header="Open" IsThreeState="True"/>
                 <DataGridTextColumn Binding="{Binding dateStartedString}" Header="Date Started"/>
                 <DataGridTextColumn Binding="{Binding dateClosedString}" Header="Date Closed"/>
                 <DataGridTextColumn Binding="{Binding currentRev}" Header="Rev"/>

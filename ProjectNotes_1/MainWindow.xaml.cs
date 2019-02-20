@@ -23,12 +23,13 @@ namespace ProjectNotes_1
     public partial class MainWindow : Window
     {
         //public List<ProjectClass> projectList = new List<ProjectClass>();
-        public List<ProjectClass_2> projectList = new List<ProjectClass_2>();
+        //public List<ProjectClass_2> projectList = new List<ProjectClass_2>();
+        public IList<basicProps> basicList = new List<basicProps>();
 
         public MainWindow()
         {
             InitializeComponent();
-            MessageBox.Show(Properties.Settings.Default.userName);
+            //MessageBox.Show(Properties.Settings.Default.userName);
             if(Properties.Settings.Default.userName == "")
             {
                 setUserName set = new setUserName();
@@ -40,6 +41,26 @@ namespace ProjectNotes_1
                 }
             }
             userNameTextBlock.Text = Properties.Settings.Default.userName;
+
+
+            Load();
+
+            UpdateGrid();
+        }
+
+        public void UpdateGrid()
+        {
+            mainDataGrid.Items.Clear();
+            basicList.Clear();
+
+            for (int i = 0; i < _global.projects.Count; i++)
+            {
+                //mainDataGrid.Items.Add(_global.projects[i].basics);
+                basicList.Add(_global.projects[i].basics);
+            }
+            mainDataGrid.Items.Add(basicList);
+
+
         }
 
         public void Load()
@@ -75,6 +96,27 @@ namespace ProjectNotes_1
         private void changeUserButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void mainDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            projectViewWindow projWindow = new projectViewWindow(mainDataGrid.SelectedIndex);
+            projWindow.ShowDialog();
+
+            UpdateGrid();
+        }
+
+        private void mainDataGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            projectViewWindow projWindow = new projectViewWindow(mainDataGrid.SelectedIndex);
+            projWindow.ShowDialog();
+
+            UpdateGrid();
+        }
+
+        private void mainDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

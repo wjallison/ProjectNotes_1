@@ -45,6 +45,8 @@ namespace ProjectNotes_1
 
         public projectViewWindow(int ind)
         {
+            InitializeComponent();
+
             fromScratch = false;
             index = ind;
             proj = _global.projects[index];
@@ -57,7 +59,29 @@ namespace ProjectNotes_1
                 }
             }
 
+            desigTextBox.Text = proj.basics.designation;
+            desigTextBox.IsReadOnly = true;
 
+            //openProjectCheckBox.IsChecked
+            switch (proj.basics.open)
+            {
+                case 0:
+                    openProjectCheckBox.IsChecked = false;
+                    break;
+                case 1:
+                    openProjectCheckBox.IsChecked = true;
+                    break;
+                case 2:
+                    openProjectCheckBox.IsChecked = null;
+                    break;
+            }
+
+            dateStartedTextBox.Text = proj.basics.dateStartedString;
+            if (openProjectCheckBox.IsChecked == true) { dateClosedTextBox.Text = proj.basics.dateClosedString; }
+            revTextBlock.Text = proj.basics.currentRev;
+            projNameTextBox.Text = proj.basics.projectName;
+            partNoTextBox.Text = proj.basics.partNum;
+            descTextBox.Text = proj.basics.description;
         }
 
         public void Save()
@@ -78,8 +102,23 @@ namespace ProjectNotes_1
                 System.IO.Directory.CreateDirectory(
                     System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation);
             }
+            //MessageBox.Show(openProjectCheckBox.IsChecked.ToString());
+            //bool? t = true;
+            //bool? f = false;
 
             //proj.basics.open = openProjectCheckBox.IsChecked;
+            switch (openProjectCheckBox.IsChecked)
+            {
+                case true:
+                    proj.basics.open = 0;
+                    break;
+                case false:
+                    proj.basics.open = 1;
+                    break;
+                case null:
+                    proj.basics.open = 2;
+                    break;
+            }
 
             //proj.basics.dateStarted
 
@@ -191,8 +230,9 @@ namespace ProjectNotes_1
             ////textFieldsDataGrid.Items.Add(thisProject);
             ////for(int i = 0; i < thisProject.)
             //textFieldsDataGrid.Items.Add(thisProject.notes);
-            proj.log.entries.Add(new Entry());
-            textFieldsDataGrid.Items.Add(proj.log.entries[-1]);
+            //proj.log.entries.Add(new Entry());
+            proj.addLogLine();
+            textFieldsDataGrid.Items.Add(proj.log.entries.Last());
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -230,6 +270,7 @@ namespace ProjectNotes_1
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Save();
             if (fromScratch)
             {
                 _global.projects.Add(proj);
@@ -240,7 +281,7 @@ namespace ProjectNotes_1
                 _global.projects[index] = proj;
             }
 
-            Save();
+            //Save();
         }
 
         private void desigTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -261,6 +302,22 @@ namespace ProjectNotes_1
         {
             desigTextBox.IsReadOnly = true;
             proj.basics.designation = desigTextBox.Text;
+        }
+
+        private void openProjectCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            switch (openProjectCheckBox.IsChecked)
+            {
+                case true:
+                    projectStateLabel.Content = "Closed";
+                    break;
+                case false:
+                    projectStateLabel.Content = "Open";
+                    break;
+                case null:
+                    projectStateLabel.Content = "On Hold";
+                    break;
+            }
         }
     }
 }
