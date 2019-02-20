@@ -52,16 +52,16 @@ namespace ProjectNotes_1
 
                 XmlSerializer serBasic = new XmlSerializer(typeof(basicProps));
                 FileStream fs = new FileStream(subDirectories[i] + "/" + "basic.xml", FileMode.Open);
-                _global.projects[-1].basics = (basicProps)serBasic.Deserialize(fs);
+                _global.projects.Last().basics = (basicProps)serBasic.Deserialize(fs);
 
                 XmlSerializer serLinks = new XmlSerializer(typeof(Links));
                 fs = new FileStream(subDirectories[i] + "/" + "links.xml", FileMode.Open);
-                _global.projects[-1].log.links = (Links)serLinks.Deserialize(fs);
+                _global.projects.Last().log.links = (Links)serLinks.Deserialize(fs);
 
                 XmlSerializer serEntries = new XmlSerializer(typeof(EntryList));
                 fs = new FileStream(subDirectories[i] + "/" + "entries.xml", FileMode.Open);
                 EntryList el = (EntryList)serEntries.Deserialize(fs);
-                _global.projects[-1].log.entries = el.ls;
+                _global.projects.Last().log.entries = el.ls;
             }
         }
 

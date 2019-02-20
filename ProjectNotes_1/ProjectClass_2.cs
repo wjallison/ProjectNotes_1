@@ -45,6 +45,11 @@ namespace ProjectNotes_1
         public ChangeLog()
         {
             entries.Add(new Entry());
+            entries[0].rev = "0";
+            entries[0].content = "";
+            entries[0].updateDate = DateTime.Now;
+            entries[0].updateDateString = entries.Last().updateDate.ToShortDateString();
+            entries[0].user = Properties.Settings.Default.userName;
             //entries[0].content = "test";
             //entries[0].rev = "test";
         }

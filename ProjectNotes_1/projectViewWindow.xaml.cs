@@ -85,7 +85,7 @@ namespace ProjectNotes_1
 
             //dateClosed
 
-            proj.basics.currentRev = proj.log.entries[-1].rev;
+            proj.basics.currentRev = proj.log.entries.Last().rev;
             proj.basics.projectName = projNameTextBox.Text;
             proj.basics.partNum = partNoTextBox.Text;
             proj.basics.description = descTextBox.Text;
