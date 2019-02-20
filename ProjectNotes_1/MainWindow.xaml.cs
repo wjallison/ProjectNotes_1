@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace ProjectNotes_1
 {
@@ -38,6 +40,29 @@ namespace ProjectNotes_1
                 }
             }
             userNameTextBlock.Text = Properties.Settings.Default.userName;
+        }
+
+        public void Load()
+        {
+            string[] subDirectories = System.IO.Directory.GetDirectories(System.IO.Directory.GetCurrentDirectory());
+
+            for(int i = 0; i < subDirectories.Length; i++)
+            {
+                _global.projects.Add(new ProjectClass_2());
+
+                XmlSerializer serBasic = new XmlSerializer(typeof(basicProps));
+                FileStream fs = new FileStream(subDirectories[i] + "/" + "basic.xml", FileMode.Open);
+                _global.projects[-1].basics = (basicProps)serBasic.Deserialize(fs);
+
+                XmlSerializer serLinks = new XmlSerializer(typeof(Links));
+                fs = new FileStream(subDirectories[i] + "/" + "links.xml", FileMode.Open);
+                _global.projects[-1].log.links = (Links)serLinks.Deserialize(fs);
+
+                XmlSerializer serEntries = new XmlSerializer(typeof(EntryList));
+                fs = new FileStream(subDirectories[i] + "/" + "entries.xml", FileMode.Open);
+                EntryList el = (EntryList)serEntries.Deserialize(fs);
+                _global.projects[-1].log.entries = el.ls;
+            }
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
