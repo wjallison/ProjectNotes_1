@@ -15,7 +15,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
             <StackPanel>
                 <Label Content="Designation"/>
-                <TextBox x:Name="desigTextBox" TextChanged="desigTextBox_TextChanged"/>
+                <TextBox x:Name="desigTextBox" TextChanged="desigTextBox_TextChanged" LostFocus="desigTextBox_LostFocus"/>
             </StackPanel>
             <StackPanel>
                 <Label Content="Open"/>

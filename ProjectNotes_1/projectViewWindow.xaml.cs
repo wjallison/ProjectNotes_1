@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace ProjectNotes_1
 {
@@ -60,6 +62,13 @@ namespace ProjectNotes_1
 
         public void Save()
         {
+            //First, establish directory
+            //Second, ensure all fields are synced
+            //Third, save each component in turn
+            //--basics
+            //--links
+            //--entries
+
             if (System.IO.Directory.Exists(System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation))
             {
 
@@ -70,8 +79,39 @@ namespace ProjectNotes_1
                     System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation);
             }
 
+            //proj.basics.open = openProjectCheckBox.IsChecked;
+
+            //proj.basics.dateStarted
+
+            //dateClosed
+
+            proj.basics.currentRev = proj.log.entries[-1].rev;
+            proj.basics.projectName = projNameTextBox.Text;
+            proj.basics.partNum = partNoTextBox.Text;
+            proj.basics.description = descTextBox.Text;
 
 
+            XmlSerializer serBasic = new XmlSerializer(typeof(basicProps));
+            string path = System.IO.Directory.GetCurrentDirectory() + "/" + proj.basics.designation + "/";
+            string basicFileName = path + "basic.xml";
+            XmlSerializer serLinks = new XmlSerializer(typeof(Links));
+            string linksFileName = path + "links.xml";
+            XmlSerializer serEntries = new XmlSerializer(typeof(EntryList));
+            string entriesFileName = path + "entries.xml";
+            EntryList el = new EntryList(proj.log.entries);
+            
+
+            TextWriter writer = new StreamWriter(basicFileName);
+            serBasic.Serialize(writer, proj.basics);
+            writer.Close();
+
+            writer = new StreamWriter(linksFileName);
+            serLinks.Serialize(writer, proj.log.links);
+            writer.Close();
+
+            writer = new StreamWriter(entriesFileName);
+            serEntries.Serialize(writer, el);
+            writer.Close();
         }
 
         //public projectViewWindow(ProjectClass p)
@@ -199,6 +239,8 @@ namespace ProjectNotes_1
             {
                 _global.projects[index] = proj;
             }
+
+            Save();
         }
 
         private void desigTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -213,6 +255,12 @@ namespace ProjectNotes_1
                     + "/" + proj.log.links.imgLocList[figListBox.SelectedIndex]));
 
             activeFigImage = img;
+        }
+
+        private void desigTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            desigTextBox.IsReadOnly = true;
+            proj.basics.designation = desigTextBox.Text;
         }
     }
 }

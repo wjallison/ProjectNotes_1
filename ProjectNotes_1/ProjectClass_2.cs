@@ -74,4 +74,18 @@ namespace ProjectNotes_1
 
         }
     }
+
+    public class EntryList
+    {
+        public List<Entry> ls = new List<Entry>();
+
+        public EntryList()
+        {
+
+        }
+        public EntryList(List<Entry> extLst)
+        {
+            ls = extLst;
+        }
+    }
 }
